@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-black: #000000;
+  --color-brand-silver: #E6ECF5;
+  --color-brand-light-gray: #E0E0E0;
+  --color-brand-accent: #FFFFFF;
+  
+  --font-sans: 'Inter', sans-serif;
+  
+  --animate-glow: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgba(230, 236, 245, 0.4), 0 0 20px rgba(230, 236, 245, 0.4);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(230, 236, 245, 0.7), 0 0 35px rgba(230, 236, 245, 0.5);
+  }
+}
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+}
+
+.chrome-text {
+  background: linear-gradient(180deg, #FFFFFF 0%, #E6ECF5 35%, #B0B9C6 50%, #E6ECF5 65%, #FFFFFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 2px rgba(230, 236, 245, 0.3);
+}
+
+.chrome-bg {
+  background: linear-gradient(180deg, #FFFFFF 0%, #E6ECF5 35%, #B0B9C6 50%, #E6ECF5 65%, #FFFFFF 100%);
+}
+
+.subtle-glow {
+  transition: all 0.3s ease;
+}
+
+.subtle-glow:hover {
+  box-shadow: 0 0 20px rgba(230, 236, 245, 0.4);
+  border-color: #E6ECF5;
+}
