@@ -16,17 +16,7 @@ export default function LegalPage() {
       </div>
 
       <div className="relative z-10 w-full max-w-4xl mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <Link href="/" className="inline-flex items-center text-sm font-mono tracking-widest text-brand-silver hover:text-white transition-colors uppercase group pb-2 border-b border-white/10 hover:border-brand-silver">
-            <ArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform" size={16} />
-            Back to Base
-          </Link>
-        </motion.div>
+
 
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -142,6 +132,19 @@ export default function LegalPage() {
               </div>
             </section>
           </div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="mt-8 mb-16 flex justify-center pb-24"
+          >
+            <Link href="/" className="inline-flex items-center gap-3 px-8 py-4 bg-brand-silver/5 border border-white/10 rounded-full text-xs font-mono tracking-widest text-brand-silver hover:text-black hover:bg-brand-silver hover:shadow-[0_0_20px_rgba(230,236,245,0.3)] transition-all duration-300 uppercase group">
+              <ArrowLeft className="group-hover:-translate-x-1 transition-transform" size={16} />
+              Return to Core
+            </Link>
+          </motion.div>
         </motion.div>
       </div>
     </main>

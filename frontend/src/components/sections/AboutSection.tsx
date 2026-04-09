@@ -3,11 +3,20 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import rafsanImage from "@/components/images/rafsanheadshot.jpg";
+import { Canvas } from "@react-three/fiber";
+import { Stars } from "@react-three/drei";
 
 export default function AboutSection() {
   return (
     <section id="about" className="py-32 px-6 md:px-12 bg-transparent relative z-10">
-      <div className="max-w-7xl mx-auto">
+      {/* Deep Space Background Layer */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-60 mix-blend-screen">
+        <Canvas camera={{ position: [0, 0, 1] }}>
+          <Stars radius={100} depth={50} count={4000} factor={4} saturation={0} fade speed={2} />
+        </Canvas>
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           
           <motion.div 
@@ -53,7 +62,7 @@ export default function AboutSection() {
                 className="object-cover object-top filter grayscale-[30%] contrast-110 brightness-90 transition-all duration-1000 group-hover:scale-105 group-hover:grayscale-0"
                 sizes="(max-width: 768px) 100vw, 500px"
                 placeholder="blur"
-                loading="lazy"
+                priority={true}
               />
               
               {/* Dynamic Gradients for seamless blending */}
@@ -73,6 +82,49 @@ export default function AboutSection() {
           </motion.div>
           
         </div>
+
+        {/* Skills Matrix */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+          className="mt-24 pt-12 border-t border-white/5 flex flex-wrap gap-4 justify-center md:justify-start"
+        >
+          <div className="w-full mb-4">
+            <h4 className="text-brand-silver uppercase tracking-widest text-xs font-mono opacity-60">Core Capabilities</h4>
+          </div>
+          {[
+            "Visuals Storytelling", "Brand Strategy & Positioning", "Concept Development", "Creative Direction",
+            "Branding Design", "Campaign Design", "Motion Graphics",
+            "Figma", "Adobe Photoshop", "Adobe Illustrator", "Adobe Premiere Pro", "Adobe After Effects",
+            "Client Communication", "Creative Collaboration", "Research & Insight Development",
+            "Prompt Engineering", "Creative Automation", "Problem Solving", "System & Performance Thinking",
+            "Story Writing"
+          ].map((skill, index) => {
+            const isEven = index % 2 === 0;
+            const isThird = index % 3 === 0;
+            return (
+              <motion.div
+                key={skill}
+                animate={{ 
+                  y: [0, isEven ? -15 : -10, 0],
+                  x: [0, isThird ? 8 : (isEven ? -6 : 6), 0],
+                  rotate: [0, isEven ? 3 : -3, 0]
+                }}
+                transition={{ 
+                  repeat: Infinity, 
+                  duration: 6 + (index % 3) * 2, 
+                  delay: index * 0.2, 
+                  ease: "easeInOut" 
+                }}
+                className="px-5 py-2.5 rounded-full bg-gradient-to-b from-white/[0.05] to-transparent border border-white/10 backdrop-blur-xl text-[11px] md:text-xs font-mono tracking-wide text-gray-300 hover:text-black hover:bg-brand-silver hover:border-brand-silver transition-all duration-500 shadow-[0_5px_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(230,236,245,0.4)] cursor-default"
+              >
+                {skill}
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );

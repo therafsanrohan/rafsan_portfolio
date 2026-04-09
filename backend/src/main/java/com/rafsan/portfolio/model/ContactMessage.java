@@ -3,6 +3,7 @@ package com.rafsan.portfolio.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,13 +15,16 @@ public class ContactMessage {
     private Long id;
 
     @NotBlank(message = "Name is required")
+    @Size(max = 100, message = "Name must not exceed 100 characters")
     private String name;
 
     @Email(message = "Email should be valid")
     @NotBlank(message = "Email is required")
+    @Size(max = 100, message = "Email max length exceeded")
     private String email;
 
     @NotBlank(message = "Message is required")
+    @Size(max = 2000, message = "Message limit is 2000 characters")
     @Column(columnDefinition = "TEXT")
     private String message;
 

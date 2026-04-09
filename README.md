@@ -147,9 +147,12 @@ To maintain the exact "Design Heritage", strict compliance is required:
 
 ## 10. Security
 
-- **Prepared Statements**: JPA handles SQL injections dynamically via bound parameters.
-- **CORS Handling**: Backend explicitly limits origins to the verified `http://localhost:3000` (or production URL).
-- **Validation**: Frontend applies basic DOM validation, whilst Backend enforces `@Valid` payload object constraint filtering for all transmissions.
+- **DDoS Shielding**: A custom Servlet Interceptor natively monitors concurrent IP-payloads in real-time, executing hard TCP drops (HTTP `429`) against brute-force/Denial of Service (DoS) attempts targeting contact endpoints.
+- **Secure SMTP Mailer**: The Spring Boot backend natively hooks into `smtp.gmail.com` establishing encrypted `STARTTLS` transport.
+- **Credential Hygiene**: The backend system binds application properties (`spring.mail.password`) using distinct isolated App Passwords. Credentials are strictly server-side and never exposed to the frontend DOM.
+- **Data Validation & Sanitization**: The frontend executes logical block validation, but the backend restricts payload depth natively through strict `@Valid` constraints capping character limits aggressively (`@Size(max=2000)`) to nullify buffer and spam vectors.
+- **Prepared Statements**: JPA handles SQL fallback injections intelligently.
+- **CORS Handling**: The Spring architecture restricts origin headers natively to local or production clients explicitly.
 
 ---
 

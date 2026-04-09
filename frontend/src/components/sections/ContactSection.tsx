@@ -21,7 +21,8 @@ export default function ContactSection() {
     setStatus("loading");
     
     try {
-      const res = await fetch("http://localhost:8080/api/contact", {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api/contact";
+      const res = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -32,9 +33,9 @@ export default function ContactSection() {
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
-      console.error(error);
+      console.error("Backend transmission failed:", error);
       setStatus("error");
-      setErrorMessage("Something went wrong. Please try again or use direct contact methods.");
+      setErrorMessage("System offline. Please use direct contact overrides.");
     }
   };
 
@@ -87,27 +88,65 @@ export default function ContactSection() {
               <span className="text-lg font-light tracking-wide">+880 1581 479 195 (WhatsApp)</span>
             </a>
 
-            <button 
-              type="button"
-              onClick={() => {
-                 const el = document.getElementById('qr-block');
-                 if(el) {
-                    el.style.display = el.style.display === 'none' ? 'block' : 'none';
-                    el.style.opacity = el.style.opacity === '0' ? '1' : '0';
-                 }
-              }}
-              className="mt-4 px-6 py-3 border border-white/20 rounded-full hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2 w-max text-sm text-gray-300 outline-none"
-            >
-              Generate Connect QR
-            </button>
+            <div className="flex flex-wrap items-center gap-4 mt-2">
+              <button 
+                type="button"
+                onClick={() => {
+                   const el = document.getElementById('qr-block');
+                   if(el) {
+                      const isOpening = el.style.display === 'none';
+                      el.style.display = isOpening ? 'block' : 'none';
+                      // Trigger reflow
+                      void el.offsetWidth;
+                      el.style.opacity = isOpening ? '1' : '0';
+                      el.style.transform = isOpening ? 'translateY(0) scale(1)' : 'translateY(-10px) scale(0.95)';
+                      
+                      if (isOpening) {
+                          // Unique auto close animation 
+                          setTimeout(() => {
+                             const activeEl = document.getElementById('qr-block');
+                             if(activeEl && activeEl.style.opacity === '1') {
+                                activeEl.style.opacity = '0';
+                                activeEl.style.transform = 'translateY(20px) scale(0.9) rotateX(15deg)';
+                                setTimeout(() => { activeEl.style.display = 'none'; }, 600);
+                             }
+                          }, 15000);
+                      }
+                   }
+                }}
+                className="px-6 py-3 bg-brand-silver/5 border border-white/10 rounded-full hover:bg-brand-silver hover:text-black hover:border-brand-silver transition-all duration-500 flex items-center justify-center gap-3 w-max text-sm text-gray-300 hover:shadow-[0_0_20px_rgba(230,236,245,0.3)] outline-none group"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:animate-pulse"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                <span>Connect by QR Code</span>
+              </button>
 
-            <div id="qr-block" style={{display: 'none', opacity: 0, transition: 'opacity 0.5s ease-in-out'}} className="mt-2 p-4 bg-white/5 rounded-[2rem] border border-white/10 backdrop-blur-md w-max">
-                <img 
-                  src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent("BEGIN:VCARD\nVERSION:3.0\nN:Rohan;Rafsan;;;\nFN:Rafsan Rohan\nTITLE:Visual Strategist\nTEL;TYPE=CELL:+8801581479195\nEMAIL:knock.rafsan@gmail.com\nURL:https://rafsanrohan.com\nEND:VCARD")}`} 
-                  alt="Rafsan V-Card" 
-                  className="rounded-xl mix-blend-screen opacity-90 mx-auto"
-                />
-                <p className="text-[10px] uppercase tracking-widest text-center mt-4 text-brand-silver/50">Auto-Save Contact</p>
+              <a 
+                href={`data:text/vcard;charset=utf-8,${encodeURIComponent("BEGIN:VCARD\nVERSION:3.0\nN:Rohan;Rafsan;;;\nFN:Rafsan Rohan\nTITLE:Visual Strategist\nTEL;TYPE=CELL:+8801581479195\nEMAIL:knock.rafsan@gmail.com\nURL:https://rafsanrohan.com\nEND:VCARD")}`} 
+                download="Rafsan_Rohan.vcf" 
+                className="px-6 py-3 bg-gradient-to-r from-brand-silver/5 to-transparent border border-white/20 rounded-full hover:bg-brand-silver hover:border-brand-silver text-gray-300 hover:text-black transition-all duration-500 flex items-center justify-center gap-2 w-max text-sm outline-none font-mono uppercase tracking-widest text-[10px] group/save shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_20px_rgba(230,236,245,0.4)] relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/save:translate-y-0 transition-transform duration-500"></div>
+                <span className="relative z-10 flex items-center gap-2">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover/save:animate-bounce"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                  Import Core Profile
+                </span>
+              </a>
+            </div>
+
+            <div id="qr-block" style={{display: 'none', opacity: 0, transform: 'translateY(-10px) scale(0.95)', transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)'}} className="mt-2 p-6 bg-black/40 rounded-3xl border border-white/10 backdrop-blur-md w-max shadow-2xl relative overflow-hidden group/qr">
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-silver/10 to-transparent opacity-0 group-hover/qr:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                
+                <div className="relative z-10 p-2 bg-white rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img 
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent("BEGIN:VCARD\nVERSION:3.0\nN:Rohan;Rafsan;;;\nFN:Rafsan Rohan\nTITLE:Visual Strategist\nTEL;TYPE=CELL:+8801581479195\nEMAIL:knock.rafsan@gmail.com\nURL:https://rafsanrohan.com\nEND:VCARD")}&bgcolor=ffffff&color=000000&margin=0`} 
+                    alt="Rafsan V-Card" 
+                    className="w-[160px] h-[160px]"
+                  />
+                </div>
+                
+                <div className="flex flex-col gap-2 mt-5">
+                   <p className="text-[9px] uppercase tracking-widest text-center text-gray-500 font-mono">Scan to Import</p>
+                </div>
             </div>
           </motion.div>
         </div>

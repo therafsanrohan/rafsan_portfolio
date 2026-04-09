@@ -16,15 +16,14 @@ function MeteorImpact() {
   const colorMap = useTexture("https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/moon_1024.jpg");
 
   useFrame((state) => {
-    // Meteor Drop Physics
+    // Meteor Drop Physics (Zero Gravity Drift)
     if (meteorRef.current && meteorRef.current.position.y > 0.5) {
-      // Meteor descending fast diagonally
-      meteorRef.current.position.x += 0.2;
-      meteorRef.current.position.y -= 0.6;
+      meteorRef.current.position.x += 0.02;
+      meteorRef.current.position.y -= 0.08;
       
-      // Slight camera shake leading up to impact
-      camera.position.x = (Math.random() - 0.5) * 0.05;
-      camera.position.y = (Math.random() - 0.5) * 0.05;
+      // Zero Gravity subtle camera float
+      camera.position.x = Math.sin(state.clock.elapsedTime * 0.5) * 0.5;
+      camera.position.y = Math.cos(state.clock.elapsedTime * 0.3) * 0.5;
     } 
     else if (meteorRef.current && meteorRef.current.position.y <= 0.5) {
       // Impact occurred
@@ -74,7 +73,7 @@ export default function NotFound() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-black text-white selection:bg-brand-silver/30 selection:text-white relative overflow-hidden flex flex-col items-center justify-center font-sans mt-20 md:mt-0">
+    <main className="min-h-screen bg-transparent text-white selection:bg-brand-silver/30 selection:text-white relative overflow-hidden flex flex-col items-center justify-center font-sans mt-20 md:mt-0">
       
       {/* Subtle UI Grid Offset */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-10 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
@@ -101,14 +100,17 @@ export default function NotFound() {
           transition={{ duration: 1.5, ease: "easeOut" }}
           className="relative inline-block"
         >
-          <motion.h1 
+          <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 2, duration: 1 }}
-            className="text-6xl md:text-8xl font-black tracking-widest text-[#a1a1aa] mb-4 blur-[1px]"
+            className="flex items-center justify-center gap-4 mb-4"
           >
-            OFFLINE
-          </motion.h1>
+            <div className="w-4 h-4 rounded-full bg-red-600 animate-pulse shadow-[0_0_15px_rgba(220,38,38,0.8)] border border-red-400"></div>
+            <h1 className="text-5xl md:text-7xl font-black tracking-widest text-[#a1a1aa] blur-[1px]">
+              OFFLINE
+            </h1>
+          </motion.div>
         </motion.div>
 
         <motion.p 
@@ -124,13 +126,19 @@ export default function NotFound() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 3 }}
-          className="flex flex-col items-center justify-center"
+          className="flex flex-col sm:flex-row items-center justify-center gap-6"
         >
           <Link 
             href="/" 
             className="px-10 py-4 bg-transparent border border-white/10 text-white font-medium rounded-full hover:bg-brand-silver hover:text-black transition-all duration-500 shadow-[0_0_15px_rgba(230,236,245,0.05)] hover:shadow-[0_0_25px_rgba(230,236,245,0.4)] w-full sm:w-auto text-center tracking-widest text-sm"
           >
             RETURN TO BASE
+          </Link>
+          <Link 
+            href="/#contact" 
+            className="px-10 py-4 bg-brand-silver/5 border border-brand-silver/30 text-brand-silver font-medium rounded-full hover:bg-brand-silver hover:text-black transition-all duration-500 shadow-[inset_0_0_15px_rgba(230,236,245,0.1)] hover:shadow-[0_0_25px_rgba(230,236,245,0.4)] w-full sm:w-auto text-center tracking-widest text-sm"
+          >
+            ESTABLISH CONTACT
           </Link>
         </motion.div>
       </div>

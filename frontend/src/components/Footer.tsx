@@ -15,35 +15,37 @@ export default function Footer() {
             Rafsan
           </Link>
           <p className="text-sm text-gray-400 mt-2 max-w-sm font-light">
-            Visual Stories. Impossible to Ignore.<br />
-            <span className="text-xs text-brand-silver uppercase tracking-widest mt-2 block opacity-50">Mission Control</span>
+            Visual Stories. Impossible to Ignore.
           </p>
         </div>
         
-        <div className="grid grid-cols-3 gap-4 max-w-[200px]">
-          <a href="https://www.linkedin.com/in/therafsanrohan/" target="_blank" rel="noopener noreferrer" className="p-3 bg-brand-silver/5 border border-white/10 rounded-full text-brand-silver hover:bg-brand-silver hover:text-black hover:border-brand-silver transition-all duration-300 drop-shadow-md">
-            <FaLinkedinIn size={18} />
-          </a>
-          <a href="https://www.behance.net/therafsanrohan" target="_blank" rel="noopener noreferrer" className="p-3 bg-brand-silver/5 border border-white/10 rounded-full text-brand-silver hover:bg-brand-silver hover:text-black hover:border-brand-silver transition-all duration-300 drop-shadow-md">
-            <FaBehance size={18} />
-          </a>
-          <a href="https://dribbble.com/therafsanrohan" target="_blank" rel="noopener noreferrer" className="p-3 bg-brand-silver/5 border border-white/10 rounded-full text-brand-silver hover:bg-brand-silver hover:text-black hover:border-brand-silver transition-all duration-300 drop-shadow-md">
-            <FaDribbble size={18} />
-          </a>
-          <a href="https://www.pinterest.com/therafsanrohan/" target="_blank" rel="noopener noreferrer" className="p-3 bg-brand-silver/5 border border-white/10 rounded-full text-brand-silver hover:bg-brand-silver hover:text-black hover:border-brand-silver transition-all duration-300 drop-shadow-md">
-            <FaPinterestP size={18} />
-          </a>
-          <a href="https://x.com/therafsanrohan" target="_blank" rel="noopener noreferrer" className="p-3 bg-brand-silver/5 border border-white/10 rounded-full text-brand-silver hover:bg-brand-silver hover:text-black hover:border-brand-silver transition-all duration-300 drop-shadow-md">
-            <FaXTwitter size={18} />
-          </a>
-          <a href="https://www.instagram.com/therafsanrohan/" target="_blank" rel="noopener noreferrer" className="p-3 bg-brand-silver/5 border border-white/10 rounded-full text-brand-silver hover:bg-brand-silver hover:text-black hover:border-brand-silver transition-all duration-300 drop-shadow-md">
-            <FaInstagram size={18} />
-          </a>
+        <div className="flex flex-col items-center md:items-end w-full md:w-auto">
+          <p className="text-xs text-gray-500 font-light mb-4 text-center md:text-right w-full">Stay in Orbit</p>
+          <div className="grid grid-cols-3 gap-4 max-w-[200px]">
+            <a href="https://www.linkedin.com/in/therafsanrohan/" target="_blank" rel="noopener noreferrer" className="p-3 bg-brand-silver/5 border border-white/10 rounded-full text-brand-silver hover:bg-brand-silver hover:text-black hover:border-brand-silver transition-all duration-300 drop-shadow-md">
+              <FaLinkedinIn size={18} />
+            </a>
+            <a href="https://www.behance.net/therafsanrohan" target="_blank" rel="noopener noreferrer" className="p-3 bg-brand-silver/5 border border-white/10 rounded-full text-brand-silver hover:bg-brand-silver hover:text-black hover:border-brand-silver transition-all duration-300 drop-shadow-md">
+              <FaBehance size={18} />
+            </a>
+            <a href="https://dribbble.com/therafsanrohan" target="_blank" rel="noopener noreferrer" className="p-3 bg-brand-silver/5 border border-white/10 rounded-full text-brand-silver hover:bg-brand-silver hover:text-black hover:border-brand-silver transition-all duration-300 drop-shadow-md">
+              <FaDribbble size={18} />
+            </a>
+            <a href="https://www.pinterest.com/therafsanrohan/" target="_blank" rel="noopener noreferrer" className="p-3 bg-brand-silver/5 border border-white/10 rounded-full text-brand-silver hover:bg-brand-silver hover:text-black hover:border-brand-silver transition-all duration-300 drop-shadow-md">
+              <FaPinterestP size={18} />
+            </a>
+            <a href="https://x.com/therafsanrohan" target="_blank" rel="noopener noreferrer" className="p-3 bg-brand-silver/5 border border-white/10 rounded-full text-brand-silver hover:bg-brand-silver hover:text-black hover:border-brand-silver transition-all duration-300 drop-shadow-md">
+              <FaXTwitter size={18} />
+            </a>
+            <a href="https://www.instagram.com/therafsanrohan/" target="_blank" rel="noopener noreferrer" className="p-3 bg-brand-silver/5 border border-white/10 rounded-full text-brand-silver hover:bg-brand-silver hover:text-black hover:border-brand-silver transition-all duration-300 drop-shadow-md">
+              <FaInstagram size={18} />
+            </a>
+          </div>
         </div>
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-500 font-mono tracking-widest uppercase">
-        <p>&copy; {new Date().getFullYear()} Rafsan Rohan.</p>
+        <p>&copy; {new Date().getFullYear()} Rafsan Rohan <span className="mx-2 text-brand-silver">|</span> Development by Creatiancy</p>
         <div className="flex space-x-6 mt-4 md:mt-0">
           <Link href="/legal" className="hover:text-brand-silver transition-colors">Orbit Protocol</Link>
         </div>
