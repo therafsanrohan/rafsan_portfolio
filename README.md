@@ -145,14 +145,20 @@ To maintain the exact "Design Heritage", strict compliance is required:
 
 ---
 
-## 10. Security
+## 10. Security & Threat Mitigation
 
-- **DDoS Shielding**: A custom Servlet Interceptor natively monitors concurrent IP-payloads in real-time, executing hard TCP drops (HTTP `429`) against brute-force/Denial of Service (DoS) attempts targeting contact endpoints.
+- **DDoS Shielding (Backend)**: A custom Servlet Interceptor natively monitors concurrent IP-payloads in real-time, executing hard TCP drops (HTTP `429`) against brute-force/Denial of Service (DoS) attempts targeting contact endpoints.
 - **Secure SMTP Mailer**: The Spring Boot backend natively hooks into `smtp.gmail.com` establishing encrypted `STARTTLS` transport.
-- **Credential Hygiene**: The backend system binds application properties (`spring.mail.password`) using distinct isolated App Passwords. Credentials are strictly server-side and never exposed to the frontend DOM.
-- **Data Validation & Sanitization**: The frontend executes logical block validation, but the backend restricts payload depth natively through strict `@Valid` constraints capping character limits aggressively (`@Size(max=2000)`) to nullify buffer and spam vectors.
-- **Prepared Statements**: JPA handles SQL fallback injections intelligently.
-- **CORS Handling**: The Spring architecture restricts origin headers natively to local or production clients explicitly.
+- **Credential Isolation**: All sensitive runtime parameters (like SMTP App Passwords) are strictly bound to isolated backend `.env` paradigms and are structurally invisible to frontend bundles.
+- **Frontend Source Cloaking**: The React/Next.js bundle is aggressively minimized upon build. Furthermore, `productionBrowserSourceMaps` is disabled preventing reverse-engineering via standard DevTools. Native contextual-menu suppression (`preventDefault`) acts as a first-layer deterrent against source scraping.
+- **Data Validation & Sanitization**: Strict `@Valid` constraints alongside logical size restraints (`@Size(max=2000)`) execute server-side blocking massive buffer/spam payloads.
+
+---
+
+## 11. Deployment Architecture (Production Paradigm)
+
+- **Frontend Environment (Vercel)**: The Next.js framework deploys instantly to Vercel capitalizing on global CDNs. React bundles are deeply compressed natively preventing unadulterated exposure of component structures.
+- **Backend Environment (VPS/AWS/Heroku)**: The Java Spring Boot `.jar` executes strictly behind closed ports managing SMTP dispatches uniquely. Exposing the API safely requires enforcing localized reverse proxies (like NGINX mapping to localhost:8080) and CORS enforcement explicitly trusting the Vercel Origin domain. 
 
 ---
 
