@@ -125,7 +125,11 @@ export default function Navbar() {
               >
                 <Link
                   href={link.href}
-                  className="text-3xl font-light text-brand-light-gray hover:text-white transition-colors relative group"
+                  className={`text-3xl font-light transition-all duration-300 relative group tracking-wider ${
+                    activeSection === link.href
+                      ? "text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]"
+                      : "text-brand-light-gray hover:text-white"
+                  }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.name}

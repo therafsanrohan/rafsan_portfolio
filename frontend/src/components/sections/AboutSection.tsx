@@ -54,21 +54,22 @@ export default function AboutSection() {
             {/* Ambient Back Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-brand-silver/10 rounded-full blur-[80px] pointer-events-none transition-all duration-700 group-hover:bg-brand-silver/20 group-hover:scale-110"></div>
             
-            <div className="relative w-full max-w-[450px] aspect-[4/5] rounded-[2rem] overflow-hidden transform transition-transform duration-700 group-hover:-translate-y-2 group-hover:shadow-[0_30px_60px_rgba(0,0,0,0.8)] z-10 border border-white/5 bg-black">
+            <div className="relative w-full max-w-[450px] aspect-[4/5] rounded-[2rem] overflow-hidden transform transition-transform duration-1000 group-hover:-translate-y-4 group-hover:shadow-[0_40px_80px_rgba(0,0,0,0.9)] z-10 border border-white/10 bg-brand-black">
               <Image 
                 src={rafsanImage}
                 alt="Rafsan Rohan"
                 fill
-                className="object-cover object-top filter grayscale-[30%] contrast-110 brightness-90 transition-all duration-1000 group-hover:scale-105 group-hover:grayscale-0"
+                className="object-cover object-top opacity-75 mix-blend-luminosity filter contrast-[1.1] transition-all duration-[1.5s] ease-out group-hover:scale-[1.03] group-hover:opacity-100 group-hover:mix-blend-normal"
                 sizes="(max-width: 768px) 100vw, 500px"
                 placeholder="blur"
                 priority={true}
               />
               
-              {/* Dynamic Gradients for seamless blending */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent pointer-events-none z-10"></div>
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.5)_100%)] pointer-events-none z-10"></div>
-              <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(255,255,255,0.05)] rounded-[2rem] pointer-events-none z-20"></div>
+              {/* Dynamic Gradients for seamless thematic blending */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none z-10"></div>
+              <div className="absolute inset-0 bg-brand-silver/10 mix-blend-overlay pointer-events-none z-10 group-hover:opacity-0 transition-opacity duration-[1.5s]"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.8)_100%)] pointer-events-none z-10"></div>
+              <div className="absolute inset-0 shadow-[inset_0_0_60px_rgba(255,255,255,0.05)] rounded-[2rem] pointer-events-none z-20 group-hover:shadow-[inset_0_0_60px_rgba(161,161,170,0.2)] transition-shadow duration-1000"></div>
             </div>
             
             {/* Subtle floating accent element */}

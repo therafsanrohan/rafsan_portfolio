@@ -44,9 +44,9 @@ export default function Footer() {
         </div>
       </div>
       
-      <div className="relative z-10 max-w-7xl mx-auto mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-500 font-mono tracking-widest uppercase">
-        <p>&copy; {new Date().getFullYear()} Rafsan Rohan <span className="mx-2 text-brand-silver">|</span> Development by Creatiancy</p>
-        <div className="flex space-x-6 mt-4 md:mt-0">
+      <div className="relative z-10 max-w-7xl mx-auto mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-500 font-mono tracking-widest uppercase gap-4 md:gap-0">
+        <p className="text-center md:text-left leading-relaxed w-full md:w-auto">&copy; {new Date().getFullYear()} Rafsan Rohan <span className="mx-2 text-brand-silver hidden md:inline-flex">|</span><br className="block md:hidden" /> Development by Creatiancy</p>
+        <div className="flex space-x-6">
           <Link href="/legal" className="hover:text-brand-silver transition-colors">Orbit Protocol</Link>
         </div>
       </div>
