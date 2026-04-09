@@ -85,16 +85,26 @@ export default function AboutSection() {
         </div>
 
         {/* Skills Matrix */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-          className="mt-24 pt-12 border-t border-white/5 flex flex-wrap gap-4 justify-center md:justify-start"
-        >
-          <div className="w-full mb-4">
-            <h4 className="text-brand-silver uppercase tracking-widest text-xs font-mono opacity-60">Core Capabilities</h4>
-          </div>
+        <div className="mt-32 pt-16 border-t border-white/5">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="w-full text-center mb-12 block"
+          >
+            <h4 className="inline-block text-brand-silver uppercase tracking-[0.3em] text-[10px] md:text-xs font-mono opacity-70 border-b border-brand-silver/10 pb-3">
+              Core Capabilities <span className="opacity-40 mx-2">//</span> Operational Matrix
+            </h4>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="flex flex-wrap gap-4 justify-center"
+          >
           {[
             "Visuals Storytelling", "Brand Strategy & Positioning", "Concept Development", "Creative Direction",
             "Branding Design", "Campaign Design", "Motion Graphics",
@@ -109,23 +119,24 @@ export default function AboutSection() {
               <motion.div
                 key={skill}
                 animate={{ 
-                  y: [0, isEven ? -15 : -10, 0],
-                  x: [0, isThird ? 8 : (isEven ? -6 : 6), 0],
-                  rotate: [0, isEven ? 3 : -3, 0]
+                  y: [0, isEven ? -12 : -18, isEven ? -5 : 6, 0],
+                  x: [0, isThird ? 12 : -8, isThird ? -5 : 10, 0],
+                  rotate: [0, isEven ? 4 : -5, isEven ? -2 : 3, 0]
                 }}
                 transition={{ 
                   repeat: Infinity, 
-                  duration: 6 + (index % 3) * 2, 
-                  delay: index * 0.2, 
-                  ease: "easeInOut" 
+                  duration: 10 + (index % 3) * 4, 
+                  delay: index * 0.25, 
+                  ease: "linear" 
                 }}
-                className="px-5 py-2.5 rounded-full bg-gradient-to-b from-white/[0.05] to-transparent border border-white/10 backdrop-blur-xl text-[11px] md:text-xs font-mono tracking-wide text-gray-300 hover:text-black hover:bg-brand-silver hover:border-brand-silver transition-all duration-500 shadow-[0_5px_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(230,236,245,0.4)] cursor-default"
+                className="px-6 py-3 rounded-full bg-gradient-to-b from-white/[0.03] to-transparent border border-white/5 backdrop-blur-xl text-[11px] md:text-xs font-mono tracking-wide text-gray-400 hover:text-black hover:bg-brand-silver hover:border-brand-silver transition-all duration-500 shadow-[0_5px_15px_rgba(0,0,0,0.3)] hover:shadow-[0_0_20px_rgba(230,236,245,0.4)] cursor-default"
               >
                 {skill}
               </motion.div>
             );
           })}
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
