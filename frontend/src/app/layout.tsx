@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased dark scroll-smooth`}>
-      <body className="bg-transparent text-brand-light-gray min-h-full flex flex-col font-sans selection:bg-brand-silver selection:text-brand-black">
+      <body suppressHydrationWarning className="bg-transparent text-brand-light-gray min-h-full flex flex-col font-sans selection:bg-brand-silver selection:text-brand-black">
         <script dangerouslySetInnerHTML={{ __html: `document.addEventListener('contextmenu', e => e.preventDefault());` }} />
         <SystemLoader />
         <Global3DBackground />
