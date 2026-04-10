@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import rafsanImage from "@/components/images/rafsanheadshot.jpg";
+import rafsanImage from "@/assets/images/rafsanheadshot.jpg";
 import { Canvas } from "@react-three/fiber";
 import { Stars } from "@react-three/drei";
 import CoreCapabilities from "./CoreCapabilities";
