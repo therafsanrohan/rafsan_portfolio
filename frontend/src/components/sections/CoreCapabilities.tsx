@@ -61,7 +61,7 @@ export default function CoreCapabilities() {
 
       {/* Orbital System (True 3D Perspective Space) */}
       <div 
-        className="relative flex w-full max-w-[900px] aspect-square items-center justify-center scale-[0.85] md:scale-[1.1] transition-transform duration-500 -mt-20 md:-mt-32"
+        className="relative flex w-full max-w-[900px] aspect-square items-center justify-center scale-[0.55] sm:scale-[0.75] md:scale-[1.1] transition-transform duration-500 -mt-20 md:-mt-32"
         style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}

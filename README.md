@@ -11,10 +11,11 @@ It maintains a strict black and metallic silver design system, driven by complex
 A highly optimized, system-focused portfolio website for Rafsan Rohan. Rather than static decorative features, this project treats the website environment as a cohesive, physics-driven universe. 
 
 **Key Objectives Achieved:**
-- True depth physical camera transitions and global 3D atmospheric systems.
-- Lightning-fast loading metrics leveraging strict lazy-loading and dynamic payloads.
-- Dynamic V-Card generation directly from the UI.
-- Secure Java/Spring Boot backend architectural pairing.
+- **Leak-Free Engine:** Strict React garbage collection and active unmount cleanups guarantee zero memory leaks across 3D contexts and event listeners.
+- **Cinematic Environment:** True depth physical camera transitions and global 3D atmospheric systems.
+- **Lightning-Fast Metrics:** Leveraging strict lazy-loading and dynamic payloads.
+- **Dynamic Capabilities:** V-Card generation directly from the UI.
+- **Robust Security:** Java/Spring Boot backend architectural pairing protecting APIs.
 
 ---
 
@@ -53,6 +54,7 @@ rafsan-web/
 ├── frontend/
 │   ├── src/
 │   │   ├── app/           # Next.js App Router (Layouts, Legal, Error bindings)
+│   │   ├── assets/        # Static media (Images, Vector files)
 │   │   ├── components/    # Reusable UI Blocks (Navbar, Publications, etc)
 │   │   │   └── canvas/    # WebGL / Three.js 3D System Modules
 │   │   └── utils/         # Helpers & constants
@@ -142,6 +144,7 @@ To maintain the exact "Design Heritage", strict compliance is required:
 
 - **Next.js Engine**: Uses strict `<Image>` tagging. `loading="lazy"` combined with `placeholder="blur"` defers visual blocking.
 - **Code Splitting**: Heavy Canvas meshes (`Global3DBackground`, `SystemLoader`) are wrapped in `next/dynamic` to ensure Server-Side Rendering never stalls on WebGL hooks.
+- **Memory Management (Leak-Free)**: Aggressive garbage collection compliance—intervals, listeners, and Three.js mounts are proactively unmounted. Zero persistent leaks within `useEffect` states.
 
 ---
 

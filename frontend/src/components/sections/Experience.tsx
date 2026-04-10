@@ -110,7 +110,7 @@ export default function Experience() {
                       <div className="absolute -inset-x-0 -bottom-0 h-1/2 bg-gradient-to-t from-brand-silver/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0"></div>
                       
                       <div className="relative z-10 flex flex-col items-start md:items-stretch">
-                        <span className="text-brand-silver font-mono text-[10px] md:text-xs tracking-widest uppercase mb-3 px-3 py-1 border border-white/10 rounded-full bg-white/5 inline-block w-max self-start md:self-auto ${isEven ? 'md:self-end' : ''}">{exp.period}</span>
+                        <span className={`text-brand-silver font-mono text-[10px] md:text-xs tracking-widest uppercase mb-3 px-3 py-1 border border-white/10 rounded-full bg-white/5 inline-block w-max self-start md:self-auto ${isEven ? 'md:self-end' : ''}`}>{exp.period}</span>
                         <h4 className="text-xl md:text-2xl font-bold text-white mb-1 group-hover:text-brand-light-gray transition-colors">{exp.company}</h4>
                         <p className="text-brand-silver/90 font-medium text-sm mb-4 block">{exp.role}</p>
                         <p className="text-gray-400 font-light text-sm md:text-base leading-relaxed">
