@@ -4,9 +4,13 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Navbar() {
   const { scrollY } = useScroll();
+  const pathname = usePathname();
+  const router = useRouter();
+  
   const [hidden, setHidden] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -14,13 +18,15 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
+    // Only track scroll if on the main page
+    if (pathname !== "/") return;
+
     const handleScrollActive = () => {
       const sections = ["home", "projects", "about", "publications", "contact"];
       let currentSection = "";
 
       for (const section of sections) {
         const el = document.getElementById(section);
-        // Give a 300px offset to trigger slightly before crossing the exact pixel line
         if (el && window.scrollY >= el.offsetTop - 300) {
           currentSection = section;
         }
@@ -29,10 +35,26 @@ export default function Navbar() {
     };
 
     window.addEventListener("scroll", handleScrollActive);
-    // Trigger on mount
     handleScrollActive();
     return () => window.removeEventListener("scroll", handleScrollActive);
-  }, []);
+  }, [pathname]);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+
+    if (pathname !== "/") {
+      router.push("/");
+      // Add smart 500ms delay to allow DOM mapping across router transition
+      setTimeout(() => {
+        const el = document.getElementById(target.replace("#", ""));
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 500); 
+    } else {
+      const el = document.getElementById(target.replace("#", ""));
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() || 0;
@@ -72,28 +94,30 @@ export default function Navbar() {
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <Link
+              <a
                 key={link.name}
-                href={link.href}
-                className={`text-sm font-medium transition-all duration-300 ${
-                  activeSection === link.href 
+                href={pathname === "/" ? link.href : `/${link.href}`}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className={`text-sm font-medium cursor-pointer transition-all duration-300 ${
+                  activeSection === link.href && pathname === "/"
                     ? "text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" 
                     : "text-brand-light-gray hover:text-white"
                 }`}
               >
                 {link.name}
-              </Link>
+              </a>
             ))}
-            <Link
-              href="#contact"
-              className={`px-6 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
-                activeSection === "#contact"
+            <a
+              href={pathname === "/" ? "#contact" : "/#contact"}
+              onClick={(e) => handleNavClick(e, "#contact")}
+              className={`px-6 py-2 text-sm font-medium cursor-pointer rounded-full transition-all duration-300 ${
+                activeSection === "#contact" && pathname === "/"
                   ? "bg-brand-silver text-black shadow-[0_0_20px_rgba(230,236,245,0.4)]"
                   : "text-black bg-white hover:bg-brand-silver hover:shadow-[0_0_20px_rgba(230,236,245,0.4)]"
               }`}
             >
               Contact
-            </Link>
+            </a>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -123,17 +147,17 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * i }}
               >
-                <Link
-                  href={link.href}
-                  className={`text-3xl font-light transition-all duration-300 relative group tracking-wider ${
-                    activeSection === link.href
+                <a
+                  href={pathname === "/" ? link.href : `/${link.href}`}
+                  className={`text-3xl font-light cursor-pointer transition-all duration-300 relative group tracking-wider ${
+                    activeSection === link.href && pathname === "/"
                       ? "text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]"
                       : "text-brand-light-gray hover:text-white"
                   }`}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.href)}
                 >
                   {link.name}
-                </Link>
+                </a>
               </motion.div>
             ))}
             <motion.div
@@ -141,13 +165,13 @@ export default function Navbar() {
                animate={{ opacity: 1, y: 0 }}
                transition={{ delay: 0.4 }}
             >
-              <Link
-                href="#contact"
-                className="mt-8 inline-block px-10 py-4 text-xl font-medium text-black bg-brand-silver rounded-full transition-all active:scale-95"
-                onClick={() => setMobileMenuOpen(false)}
+              <a
+                href={pathname === "/" ? "#contact" : "/#contact"}
+                className="mt-8 inline-block cursor-pointer px-10 py-4 text-xl font-medium text-black bg-brand-silver rounded-full transition-all active:scale-95"
+                onClick={(e) => handleNavClick(e, "#contact")}
               >
                 Contact
-              </Link>
+              </a>
             </motion.div>
           </motion.div>
         )}

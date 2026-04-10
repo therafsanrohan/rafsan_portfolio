@@ -87,14 +87,14 @@ export default function HeroSection() {
         >
           <Link 
             href="#projects" 
-            className="group flex items-center gap-2 px-8 py-4 bg-white text-black font-medium rounded-full hover:bg-brand-silver transition-all duration-300 subtle-glow backdrop-blur-sm"
+            className="group flex items-center justify-center gap-2 px-8 py-4 w-full sm:w-auto bg-white text-black font-medium rounded-full hover:bg-brand-silver transition-all duration-300 subtle-glow backdrop-blur-sm"
           >
             Explore Work
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </Link>
           <Link 
             href="#contact" 
-            className="px-8 py-4 bg-black/40 text-white font-medium rounded-full border border-gray-600 hover:border-brand-silver hover:text-brand-silver transition-all duration-300 backdrop-blur-md"
+            className="px-8 py-4 w-full sm:w-auto flex justify-center bg-black/40 text-white font-medium rounded-full border border-gray-600 hover:border-brand-silver hover:text-brand-silver transition-all duration-300 backdrop-blur-md"
           >
             Contact Me
           </Link>
