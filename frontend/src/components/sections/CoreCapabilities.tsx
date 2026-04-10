@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useAnimationFrame, useMotionValue, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useAnimationFrame, useMotionValue, useTransform, AnimatePresence, MotionValue } from "framer-motion";
 
 const skills = [
   "Visual Storytelling", "Brand Strategy", "Concept Development", 
@@ -28,6 +28,7 @@ export default function CoreCapabilities() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -137,7 +138,7 @@ export default function CoreCapabilities() {
   );
 }
 
-function OrbitingLightRing({ radius, speed, globalAngle }: { radius: number, speed: number, globalAngle: any }) {
+function OrbitingLightRing({ radius, speed, globalAngle }: { radius: number, speed: number, globalAngle: MotionValue<number> }) {
   const lineSpin = useTransform(globalAngle, (a: number) => -(a * speed * 0.5) % 360);
   return (
     <div 
@@ -162,7 +163,7 @@ function OrbitingLightRing({ radius, speed, globalAngle }: { radius: number, spe
 function OrbitingCard({ 
   skill, ringRadius, speed, phaseOffset, globalAngle, onClick, isFocused, hasActiveFocus 
 }: { 
-  skill: string, ringRadius: number, speed: number, phaseOffset: number, globalAngle: any, onClick: () => void, isFocused: boolean, hasActiveFocus: boolean 
+  skill: string, ringRadius: number, speed: number, phaseOffset: number, globalAngle: MotionValue<number>, onClick: () => void, isFocused: boolean, hasActiveFocus: boolean 
 }) {
   // Compute my specific angle based on global time
   const myAngle = useTransform(globalAngle, (a: number) => {

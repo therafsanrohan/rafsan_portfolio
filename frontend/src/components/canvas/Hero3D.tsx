@@ -4,7 +4,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { PerspectiveCamera, Points, PointMaterial } from "@react-three/drei";
 import { useRef, useState } from "react";
 import * as THREE from "three";
-// @ts-ignore
+// @ts-expect-error - maath does not have types
 import * as random from "maath/random/dist/maath-random.esm";
 
 function DynamicWarpStars() {

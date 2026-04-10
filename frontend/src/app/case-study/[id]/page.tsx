@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useParams } from "next/navigation";
 
 // Mock data (in a real app, this would be fetched from the backend or a CMS)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const projectDetails: Record<string, any> = {
   "project-1": {
     title: "Fintech Rebranding",

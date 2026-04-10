@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Mail, Phone, Loader2, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, Loader2, CheckCircle2 } from "lucide-react";
 import dynamic from "next/dynamic";
 
 const Contact3D = dynamic(() => import("@/components/canvas/Contact3D"), { ssr: false });
@@ -144,6 +144,7 @@ export default function ContactSection() {
                   <div className="absolute inset-0 bg-gradient-to-br from-brand-silver/10 to-transparent opacity-0 group-hover/qr:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                   
                   <div className="relative z-10 p-2 bg-white rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img 
                       src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent("BEGIN:VCARD\nVERSION:3.0\nN:Rohan;Rafsan;;;\nFN:Rafsan Rohan\nTITLE:Visual Strategist\nTEL;TYPE=CELL:+8801581479195\nEMAIL:knock.rafsan@gmail.com\nURL:https://rafsanrohan.com\nEND:VCARD")}&bgcolor=ffffff&color=000000&margin=0`} 
                       alt="Rafsan V-Card" 

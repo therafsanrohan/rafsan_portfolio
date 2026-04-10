@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/immutability */
 "use client";
 
 import { useEffect, useState, useRef, Suspense } from "react";
@@ -42,7 +43,7 @@ function UniverseSystem({ phase }: { phase: number }) {
     camera.position.z = 40;
   }, [camera]);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (moonRef.current) {
       // Very slow, realistic physical rotation
       moonRef.current.rotation.y += 0.003;

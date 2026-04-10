@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Center, Float, Sparkles, PerspectiveCamera } from "@react-three/drei";
+import { Center, Sparkles, PerspectiveCamera } from "@react-three/drei";
 import { useRef } from "react";
 import * as THREE from "three";
 

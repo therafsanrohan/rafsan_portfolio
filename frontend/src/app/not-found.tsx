@@ -22,6 +22,7 @@ function MeteorImpact() {
       meteorRef.current.position.y -= 0.08;
       
       // Zero Gravity subtle camera float
+      // eslint-disable-next-line react-hooks/immutability
       camera.position.x = Math.sin(state.clock.elapsedTime * 0.5) * 0.5;
       camera.position.y = Math.cos(state.clock.elapsedTime * 0.3) * 0.5;
     } 
@@ -69,6 +70,7 @@ export default function NotFound() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -126,7 +128,7 @@ export default function NotFound() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-6"
+          className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-8 mb-24"
         >
           <Link 
             href="/" 
