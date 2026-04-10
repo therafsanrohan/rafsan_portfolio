@@ -138,7 +138,7 @@ export default function CoreCapabilities() {
 }
 
 function OrbitingLightRing({ radius, speed, globalAngle }: { radius: number, speed: number, globalAngle: any }) {
-  const lineSpin = useTransform(globalAngle, a => -(a * speed * 0.5) % 360);
+  const lineSpin = useTransform(globalAngle, (a: number) => -(a * speed * 0.5) % 360);
   return (
     <div 
       className="absolute rounded-full border border-white/[0.03] pointer-events-none"
