@@ -87,7 +87,7 @@ export default function Navbar() {
             isScrolled ? "bg-black/40 backdrop-blur-2xl border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)]" : "bg-transparent border-transparent"
           }`}
         >
-          <Link href="/" className="text-xl font-bold tracking-tight z-50 text-white">
+          <Link href="/" className="text-xl font-bold tracking-tight z-50 text-white pl-4 md:pl-6">
             Rafsan
           </Link>
 
