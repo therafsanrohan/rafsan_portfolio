@@ -162,15 +162,16 @@ To maintain the exact "Design Heritage", strict compliance is required:
 
 ---
 
-## 11. Key Features
+## 12. Key Features
 
+- **Planetary Orbital System (Core Capabilities)**: A structurally authentic orbital hierarchy for skills. Capability cards seamlessly revolve around a central core traversing an actual physical `preserve-3d` tilted 3D plane. The system eliminates flat 2D projection physics (like overlap artifacts or fake scaling) and uses absolute spatial Z-depth calculations, allowing cards to move physically deeper into the monitor and scale automatically through the browser's native camera perspective.
 - **3D Universe Loading Animation**: A true spatial load sequence. Planets orbit realistically; the camera physically travels depth across the Z-axis to clarify a locked focus state on the moon.
 - **Dynamic V-Card QR System**: A physical "Generate Connect QR" button compiles string arrays into a high-fidelity image dynamically fetched from robust API layers—no bulky overhead required.
 - **Shattered Impact Route (404)**: Offline states aren't static; they are physically simulated. An actual tiny meteor object strikes the lunar 3D grid and detonates a scaling dust cloud before freezing the frame entirely in silence.
 
 ---
 
-## 12. Common Commands
+## 13. Common Commands
 
 **Frontend Lifecycle**
 ```bash
@@ -187,7 +188,7 @@ npm run start   # Deploys production bundle
 
 ---
 
-## 13. Troubleshooting
+## 14. Troubleshooting
 
 - **Canvas Rendering Blank (SSR Failure)**: If you accidentally wrap a Three.js primitive without `'use client'` natively or dynamically, Next.js blocks it. Use `next/dynamic` heavily.
 - **Port Conflicts**: If port `:8080` is busy, inject `server.port=8081` into the Spring Boot properties.
@@ -195,7 +196,7 @@ npm run start   # Deploys production bundle
 
 ---
 
-## 14. Final Notes
+## 15. Final Notes
 
 The architecture of this site reflects intention.  
 Visuals are not decorative—they are structural choices mimicking realistic physics. Maintain design consistency. Ensure new animations inherently mirror gravity, momentum, or focus shifts rather than arbitrary motion. Do not build "clutter". 

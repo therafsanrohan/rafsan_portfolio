@@ -5,6 +5,7 @@ import Image from "next/image";
 import rafsanImage from "@/components/images/rafsanheadshot.jpg";
 import { Canvas } from "@react-three/fiber";
 import { Stars } from "@react-three/drei";
+import CoreCapabilities from "./CoreCapabilities";
 
 export default function AboutSection() {
   const { scrollYProgress } = useScroll();
@@ -92,61 +93,8 @@ export default function AboutSection() {
           
         </div>
 
-        {/* Skills Matrix */}
-        <div className="mt-32 pt-16 border-t border-white/5">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="w-full text-center mb-12 block"
-          >
-            <h4 className="inline-block text-brand-silver uppercase tracking-[0.3em] text-[10px] md:text-xs font-mono opacity-70 border-b border-brand-silver/10 pb-3">
-              Core Capabilities <span className="opacity-40 mx-2">//</span> Operational Matrix
-            </h4>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="flex flex-wrap gap-4 justify-center"
-          >
-          {[
-            "Visuals Storytelling", "Brand Strategy & Positioning", "Concept Development", "Creative Direction",
-            "Branding Design", "Campaign Design", "Motion Graphics",
-            "Figma", "Adobe Photoshop", "Adobe Illustrator", "Adobe Premiere Pro", "Adobe After Effects",
-            "Client Communication", "Creative Collaboration", "Research & Insight Development",
-            "Prompt Engineering", "Creative Automation", "Problem Solving", "System & Performance Thinking",
-            "Story Writing"
-          ].map((skill, index) => {
-            const isEven = index % 2 === 0;
-            const isThird = index % 3 === 0;
-            return (
-              <motion.div
-                key={skill}
-                animate={{ 
-                  y: [0, isEven ? -12 : -18, isEven ? -5 : 6, 0],
-                  x: [0, isThird ? 12 : -8, isThird ? -5 : 10, 0],
-                  rotate: [0, isEven ? 4 : -5, isEven ? -2 : 3, 0]
-                }}
-                whileHover={{ scale: 1.08, z: 50, transition: { duration: 0.3 } }}
-                transition={{ 
-                  repeat: Infinity, 
-                  duration: 10 + (index % 3) * 4, 
-                  delay: index * 0.25, 
-                  ease: "linear" 
-                }}
-                className="px-6 py-3 rounded-full bg-gradient-to-b from-white/[0.03] to-transparent border border-white/5 backdrop-blur-xl text-[11px] md:text-xs font-mono tracking-wide text-gray-400 hover:text-white hover:bg-brand-silver/10 hover:border-brand-silver transition-colors duration-300 shadow-[0_5px_15px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_30px_rgba(161,161,170,0.2)] cursor-crosshair transform-gpu"
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                {skill}
-              </motion.div>
-            );
-          })}
-          </motion.div>
-        </div>
+        {/* Planetary Orbital System */}
+        <CoreCapabilities />
       </div>
     </section>
   );

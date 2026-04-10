@@ -18,8 +18,13 @@ function OrbitingPlanet({ distance, speed, size, color }: { distance: number, sp
   });
 
   return (
-    <Sphere args={[size, 32, 32]} ref={ref}>
-      <meshStandardMaterial color={color} roughness={0.8} metalness={0.2} />
+    <Sphere args={[size, 64, 64]} ref={ref}>
+      <meshStandardMaterial 
+         color={color} 
+         roughness={0.9} 
+         metalness={0.1} 
+         bumpScale={0.02}
+      />
     </Sphere>
   );
 }
@@ -56,32 +61,38 @@ function UniverseSystem({ phase }: { phase: number }) {
 
   return (
     <>
-      <ambientLight intensity={0.01} />
-      {/* Primary Sun / Light Source */}
-      <directionalLight 
-        position={[10, 5, 10]} 
-        intensity={phase >= 2 ? 1.8 : 0.2} 
-        color="#e4e4e7"
-      />
-      {/* Subtle Space Rim Light highlighting craters */}
-      <directionalLight position={[-10, 0, -5]} intensity={0.1} color="#a1a1aa" />
+      <fog attach="fog" args={['#030305', 20, 100]} />
       
-      {/* Background Universe */}
-      <Stars radius={100} depth={50} count={3000} factor={3} saturation={0} fade speed={1} />
+      {/* Void Space Ambient Light - extremely low to keep shadows pitch black */}
+      <ambientLight intensity={0.005} />
+      
+      {/* Primary Solar Light Source - Stark and directional */}
+      <directionalLight 
+        position={[15, 5, 5]} 
+        intensity={phase >= 2 ? 3.5 : 0.5} 
+        color="#ffffff"
+      />
+      {/* Distant Starlight Rim Light to barely illuminate the dark side */}
+      <directionalLight position={[-15, -5, -15]} intensity={0.08} color="#93c5fd" />
+      
+      {/* Deep Background Universe - High Density Stars */}
+      <Stars radius={200} depth={100} count={8000} factor={4} saturation={0.5} fade speed={0.5} />
       
       {/* Orbiting Planets in Universe */}
-      <OrbitingPlanet distance={8} speed={0.5} size={0.2} color="#71717a" />
-      <OrbitingPlanet distance={15} speed={0.25} size={0.5} color="#52525b" />
-      <OrbitingPlanet distance={22} speed={0.1} size={0.8} color="#3f3f46" />
+      <OrbitingPlanet distance={8} speed={0.5} size={0.3} color="#a1a1aa" />
+      <OrbitingPlanet distance={16} speed={0.25} size={0.6} color="#7dd3fc" />
+      <OrbitingPlanet distance={26} speed={0.1} size={1.2} color="#fca5a5" />
 
       {/* Main Focus Moon */}
-      <Sphere args={[2, 64, 64]} ref={moonRef}>
+      <Sphere args={[2, 128, 128]} ref={moonRef}>
         <meshStandardMaterial 
           map={colorMap}
           bumpMap={colorMap}
-          bumpScale={0.08}
-          metalness={0.1}
-          roughness={0.8}
+          bumpScale={0.05}
+          displacementMap={colorMap}
+          displacementScale={0.04}
+          metalness={0.05}
+          roughness={0.9}
         />
       </Sphere>
     </>
@@ -123,7 +134,8 @@ export default function SystemLoader() {
           className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center"
         >
           {/* Deep space radial glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.02)_0%,transparent_80%)] pointer-events-none"></div>
+          <div className="absolute inset-0 bg-[#030305] pointer-events-none"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.03)_0%,transparent_70%)] pointer-events-none"></div>
 
           <div className="w-full h-full absolute inset-0">
             <Canvas camera={{ fov: 45 }}>

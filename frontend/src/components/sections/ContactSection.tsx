@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Mail, Phone, Loader2, CheckCircle2 } from "lucide-react";
 import dynamic from "next/dynamic";
 
@@ -11,6 +11,27 @@ export default function ContactSection() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [showQR, setShowQR] = useState(false);
+  const qrTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (qrTimeoutRef.current) clearTimeout(qrTimeoutRef.current);
+    };
+  }, []);
+
+  const toggleQR = () => {
+    if (showQR) {
+      setShowQR(false);
+      if (qrTimeoutRef.current) clearTimeout(qrTimeoutRef.current);
+    } else {
+      setShowQR(true);
+      if (qrTimeoutRef.current) clearTimeout(qrTimeoutRef.current);
+      qrTimeoutRef.current = setTimeout(() => {
+        setShowQR(false);
+      }, 15000);
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -91,29 +112,7 @@ export default function ContactSection() {
             <div className="flex flex-wrap items-center gap-4 mt-2">
               <button 
                 type="button"
-                onClick={() => {
-                   const el = document.getElementById('qr-block');
-                   if(el) {
-                      const isOpening = el.style.display === 'none';
-                      el.style.display = isOpening ? 'block' : 'none';
-                      // Trigger reflow
-                      void el.offsetWidth;
-                      el.style.opacity = isOpening ? '1' : '0';
-                      el.style.transform = isOpening ? 'translateY(0) scale(1)' : 'translateY(-10px) scale(0.95)';
-                      
-                      if (isOpening) {
-                          // Unique auto close animation 
-                          setTimeout(() => {
-                             const activeEl = document.getElementById('qr-block');
-                             if(activeEl && activeEl.style.opacity === '1') {
-                                activeEl.style.opacity = '0';
-                                activeEl.style.transform = 'translateY(20px) scale(0.9) rotateX(15deg)';
-                                setTimeout(() => { activeEl.style.display = 'none'; }, 600);
-                             }
-                          }, 15000);
-                      }
-                   }
-                }}
+                onClick={toggleQR}
                 className="px-6 py-3 bg-brand-silver/5 border border-white/10 rounded-full hover:bg-brand-silver hover:text-black hover:border-brand-silver transition-all duration-500 flex items-center justify-center gap-3 w-full sm:w-[220px] text-gray-300 hover:shadow-[0_0_20px_rgba(230,236,245,0.3)] outline-none group font-mono uppercase tracking-widest text-[10px]"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:animate-pulse"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
@@ -133,21 +132,31 @@ export default function ContactSection() {
               </a>
             </div>
 
-            <div id="qr-block" style={{display: 'none', opacity: 0, transform: 'translateY(-10px) scale(0.95)', transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)'}} className="mt-2 p-6 bg-black/40 rounded-3xl border border-white/10 backdrop-blur-md w-max shadow-2xl relative overflow-hidden group/qr">
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-silver/10 to-transparent opacity-0 group-hover/qr:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-                
-                <div className="relative z-10 p-2 bg-white rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-                  <img 
-                    src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent("BEGIN:VCARD\nVERSION:3.0\nN:Rohan;Rafsan;;;\nFN:Rafsan Rohan\nTITLE:Visual Strategist\nTEL;TYPE=CELL:+8801581479195\nEMAIL:knock.rafsan@gmail.com\nURL:https://rafsanrohan.com\nEND:VCARD")}&bgcolor=ffffff&color=000000&margin=0`} 
-                    alt="Rafsan V-Card" 
-                    className="w-[160px] h-[160px]"
-                  />
-                </div>
-                
-                <div className="flex flex-col gap-2 mt-5">
-                   <p className="text-[9px] uppercase tracking-widest text-center text-gray-500 font-mono">Scan to Import</p>
-                </div>
-            </div>
+            <AnimatePresence>
+              {showQR && (
+                <motion.div 
+                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 20, scale: 0.9, rotateX: 15 }}
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  className="mt-2 p-6 bg-black/40 rounded-3xl border border-white/10 backdrop-blur-md w-max shadow-2xl relative overflow-hidden group/qr"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-silver/10 to-transparent opacity-0 group-hover/qr:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                  
+                  <div className="relative z-10 p-2 bg-white rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                    <img 
+                      src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent("BEGIN:VCARD\nVERSION:3.0\nN:Rohan;Rafsan;;;\nFN:Rafsan Rohan\nTITLE:Visual Strategist\nTEL;TYPE=CELL:+8801581479195\nEMAIL:knock.rafsan@gmail.com\nURL:https://rafsanrohan.com\nEND:VCARD")}&bgcolor=ffffff&color=000000&margin=0`} 
+                      alt="Rafsan V-Card" 
+                      className="w-[160px] h-[160px]"
+                    />
+                  </div>
+                  
+                  <div className="flex flex-col gap-2 mt-5">
+                     <p className="text-[9px] uppercase tracking-widest text-center text-gray-500 font-mono">Scan to Import</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </div>
 
